@@ -1,6 +1,6 @@
 # INGCO Technical Test - User Management App
 
-This project is a single-page application (SPA) built with **React** to fulfill the requirements of the INGCO technical test. It displays a list of users in a table with pagination, allows creation of new users, and supports filtering based on user status.
+This project is a single-page application (SPA) built with **React** to fulfill the requirements of the INGCO technical test. It displays a list of users in a table with pagination, sorting, creation of new users, and supports filtering based on first name and last name.
 
 ## Features
 
