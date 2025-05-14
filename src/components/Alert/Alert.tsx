@@ -1,4 +1,4 @@
-import { Table, Button, Flex, AlertDialog } from '@radix-ui/themes';
+import { Table, IconButton, Button, Flex, AlertDialog } from '@radix-ui/themes';
 import { TrashIcon } from "@radix-ui/react-icons";
 
 interface AlertProps {
@@ -11,9 +11,9 @@ function Alert({removeUserById, userId}: AlertProps) {
 				<>
 						<AlertDialog.Root>
 								<AlertDialog.Trigger>
-										<Button size="3">
+										<IconButton size="3">
 												<TrashIcon width="1.5rem" height="1.5rem"  />
-										</Button>	
+										</IconButton>	
 								</AlertDialog.Trigger>
 								<AlertDialog.Content maxWidth="450px">
 										<AlertDialog.Title>Remove User</AlertDialog.Title>

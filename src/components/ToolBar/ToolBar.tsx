@@ -1,11 +1,20 @@
 import { TextField, Flex, Text } from '@radix-ui/themes';
+import { useState } from 'react';
 import Modal from "@/components/Modal/Modal";
 import styles from './ToolBar.module.css';
+
 interface ToolBarProps {
 	createUser: () => void;
 }
 
 function ToolBar({createUser}: ToolBarProps) {
+
+	// variables/states
+	const [firstName, setFirstName] = useState<string>("");
+	const [lastName, setLastName] = useState<string>("");
+
+	// functions
+
 	return (
 		<Flex className={styles.container} gap="3">
 			<div>
@@ -14,8 +23,9 @@ function ToolBar({createUser}: ToolBarProps) {
 						Filter first name
 					</Text>
 					<TextField.Root
-						id="firstName"
-						placeholder="Enter first name"
+						onChange={e => setFirstName(e.target.value)}
+										 id="firstName"
+										 placeholder="Enter first name"
 					/>
 				</label>
 			</div>
@@ -25,8 +35,9 @@ function ToolBar({createUser}: ToolBarProps) {
 						Filter last name
 					</Text>
 					<TextField.Root
-						id="lastName"
-						placeholder="Enter last name"
+							onChange={e => setLastName(e.target.value)}
+							id="lastName"
+							placeholder="Enter last name"
 					/>
 				</label>
 			</div>

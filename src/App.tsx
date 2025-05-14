@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import type { ApiUser } from '@/types/interfaces';
 import Pagination from '@/components/Pagination/Pagination';
 import ToolBar from '@/components/ToolBar/ToolBar';
-import Table from '@/components/Table';
+import Table from '@/components/Table/Table';
 import './App.css'
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
 				if(Array.isArray(data)) {
 					data = data.filter(user => user.status === true);
 					setTotalPages(Math.ceil(data.length / itemsPerPage));
-					setDataTable(data);
+					sortData("firstName", data);
 				}
 
 			} catch(err) {
@@ -52,6 +52,19 @@ function App() {
   }, [dataTable, currentPage, itemsPerPage]);
 
 	// Functions
+	const sortData = (sortType: string, data?: ApiUser[]) => {
+		let sorted: ApiUser[] = [];
+
+		if(data) {
+			sorted = [...data].sort((a, b) => a[sortType].localeCompare(b[sortType]));
+			setDataTable(sorted);
+		} else {
+			sorted = [...dataTable].sort((a, b) => a[sortType].localeCompare(b[sortType]));
+			setDataTable(sorted);
+		}
+
+	}
+
 	const createUser = (user: ApiUser) => {
 		const newId = dataTable[dataTable.length - 1].id + 1;
 		user.id = newId;
@@ -66,7 +79,7 @@ function App() {
 	return (
 		<>
 			<ToolBar createUser={createUser} />
-			<Table data={paginatedData} removeUserById={removeUserById} />
+			<Table sortData={sortData} data={paginatedData} removeUserById={removeUserById} />
 			<Pagination totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 		</>
 	)

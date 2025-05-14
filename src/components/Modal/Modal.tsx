@@ -7,32 +7,12 @@ interface ModalProps {
 	createUser: (user: ApiUser ) => void;
 };
 
-enum InputTypes {
-	EMAIL,
-	FIRSTNAME,
-	LASTNAME,
-}
-
 function Modal({createUser}: ModalProps) {
 	const [firstName, setFirstName] = useState<string>("")
 	const [lastName, setLastName] = useState<string>("")
 	const [email, setEmail] = useState<string>("")	
 
 	// functions
-	const handleInputChange = (ev: React.ChangeEvent<HTMLInputElement>, input: InputTypes) => {
-		switch(input) {
-			case InputTypes.EMAIL:
-				setEmail(ev.target.value);
-				break;
-			case InputTypes.FIRSTNAME:
-				setFirstName(ev.target.value);
-				break;
-			case InputTypes.LASTNAME:
-				setLastName(ev.target.value);
-				break;
-		}
-	};
-	
 	const validateForm = () => {
 		if(!email || !firstName || !lastName) {
 			return;
@@ -68,7 +48,7 @@ function Modal({createUser}: ModalProps) {
 							</Text>
 							<TextField.Root
 								id="firstName"
-								onChange={(ev) => handleInputChange(ev, InputTypes.FIRSTNAME)}
+								onChange={ev => setFirstName(ev.target.value)}
 								placeholder="Enter your first name"
 							/>
 						</label>
@@ -78,7 +58,7 @@ function Modal({createUser}: ModalProps) {
 							</Text>
 							<TextField.Root
 								id="lastName"
-								onChange={(ev) => handleInputChange(ev, InputTypes.LASTNAME)}
+								onChange={ev => setLastName(ev.target.value)}
 								placeholder="Enter your last name"
 							/>
 						</label>
@@ -88,7 +68,7 @@ function Modal({createUser}: ModalProps) {
 							</Text>
 							<TextField.Root
 								id="email"
-								onChange={(ev) => handleInputChange(ev, InputTypes.EMAIL)}
+								onChange={ev => setEmail(ev.target.value)}
 								placeholder="Enter your email"
 							/>
 						</label>
