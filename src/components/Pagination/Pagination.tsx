@@ -2,13 +2,13 @@ import { Button } from '@radix-ui/themes';
 import styles from './Pagination.module.css';
 
 interface PaginationProps {
-  totalPages: number;
+	totalPages: number;
 	currentPage: number;
 	setCurrentPage: (page: number) => void;
 };
 
 export function Pagination({ totalPages, currentPage, setCurrentPage }: PaginationProps) {
-  return (
+	return (
 		<div className={styles.container}>
 			<Button
 				disabled = {currentPage <= 1}

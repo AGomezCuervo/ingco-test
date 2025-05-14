@@ -5,15 +5,11 @@ import styles from './ToolBar.module.css';
 
 interface ToolBarProps {
 	createUser: () => void;
+	setFirstName: () => void;
+	setLastName: () => void;
 }
 
-function ToolBar({createUser}: ToolBarProps) {
-
-	// variables/states
-	const [firstName, setFirstName] = useState<string>("");
-	const [lastName, setLastName] = useState<string>("");
-
-	// functions
+function ToolBar({createUser, setLastName, setFirstName}: ToolBarProps) {
 
 	return (
 		<Flex className={styles.container} gap="3">
@@ -24,8 +20,8 @@ function ToolBar({createUser}: ToolBarProps) {
 					</Text>
 					<TextField.Root
 						onChange={e => setFirstName(e.target.value)}
-										 id="firstName"
-										 placeholder="Enter first name"
+						id="firstName"
+						placeholder="Enter first name"
 					/>
 				</label>
 			</div>
@@ -35,9 +31,9 @@ function ToolBar({createUser}: ToolBarProps) {
 						Filter last name
 					</Text>
 					<TextField.Root
-							onChange={e => setLastName(e.target.value)}
-							id="lastName"
-							placeholder="Enter last name"
+						onChange={e => setLastName(e.target.value)}
+						id="lastName"
+						placeholder="Enter last name"
 					/>
 				</label>
 			</div>

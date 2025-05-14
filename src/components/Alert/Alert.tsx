@@ -13,7 +13,7 @@ function Alert({removeUserById, userId}: AlertProps) {
 								<AlertDialog.Trigger>
 										<IconButton size="3">
 												<TrashIcon width="1.5rem" height="1.5rem"  />
-										</IconButton>	
+										</IconButton>
 								</AlertDialog.Trigger>
 								<AlertDialog.Content maxWidth="450px">
 										<AlertDialog.Title>Remove User</AlertDialog.Title>
