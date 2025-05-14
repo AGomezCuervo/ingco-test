@@ -1,4 +1,5 @@
-import type { ApiUser } from '@/types/interfaces';
+import type { ApiUser, Sort } from '@/types/interfaces';
+import { SortType } from '@/types/interfaces';
 import { Table, Button, Tooltip } from '@radix-ui/themes';
 import { useState} from "react";
 import { ArrowUpIcon, ArrowDownIcon } from "@radix-ui/react-icons";
@@ -8,18 +9,35 @@ import styles from './Table.module.css';
 interface UsersTableProps {
 	data: ApiUser[];
 	removeUserById: (id: number) => void;
-	sortData: (sortType: string) => void;
+	sortData: (sortObj: Sort) => void;
 };
 
 function UsersTable({sortData, data, removeUserById}: UsersTableProps) {
+
 	// variables/states
-	const [sortBy, setSortBy] = useState<string>("firstName");
+	const [sortBy, setSortBy] = useState<Sort>({
+		name: "firstName",
+		type: SortType.ASC,
+	});
 
 	// functions
-	const handleSort = (sortType: string) => {
-		setSortBy(sortType);
-		sortData(sortType);
-	}
+	const handleSort = (sortName: string) => {
+		setSortBy(prev => {
+			let type = SortType.ASC;
+
+			if (prev.name === sortName) {
+				type = prev.type === SortType.ASC ? SortType.DESC : SortType.ASC;
+			}
+
+			const newSortObj = {
+				name: sortName,
+				type,
+			};
+
+			sortData(newSortObj);
+			return newSortObj;
+		});
+	};
 
 	return (
 		<>
@@ -29,7 +47,7 @@ function UsersTable({sortData, data, removeUserById}: UsersTableProps) {
 						<Table.ColumnHeaderCell>
 							<Button onClick={() => handleSort("firstName")} className={styles.Button} color="white" variant="ghost">
 								First Name
-								{sortBy == "firstName" ?
+								{sortBy.name === "firstName" && sortBy.type === SortType.ASC ?
 								 <ArrowUpIcon/> :
 								 <ArrowDownIcon />
 								}
@@ -38,7 +56,7 @@ function UsersTable({sortData, data, removeUserById}: UsersTableProps) {
 						<Table.ColumnHeaderCell>
 							<Button onClick={() => handleSort("lastName")} className={styles.Button} color="white" variant="ghost">
 								Last Name
-								{sortBy == "lastName" ?
+								{sortBy.name == "lastName" && sortBy.type === SortType.ASC  ?
 								 <ArrowUpIcon/> :
 								 <ArrowDownIcon />
 								}
@@ -47,7 +65,7 @@ function UsersTable({sortData, data, removeUserById}: UsersTableProps) {
 						<Table.ColumnHeaderCell>
 							<Button onClick={() => handleSort("email")} className={styles.Button} color="white" variant="ghost">
 								Email
-								{sortBy == "email" ?
+								{sortBy.name == "email" && sortBy.type === SortType.ASC ?
 								 <ArrowUpIcon/> :
 								 <ArrowDownIcon />
 								}

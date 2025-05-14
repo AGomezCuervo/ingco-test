@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
-import type { ApiUser } from '@/types/interfaces';
+import type { ApiUser, Sort } from '@/types/interfaces';
+import { SortType } from '@/types/interfaces';
 import Pagination from '@/components/Pagination/Pagination';
 import ToolBar from '@/components/ToolBar/ToolBar';
 import Table from '@/components/Table/Table';
@@ -31,7 +32,7 @@ function App() {
 				if(Array.isArray(data)) {
 					data = data.filter(user => user.status === true);
 					setTotalPages(Math.ceil(data.length / itemsPerPage));
-					sortData("firstName", data);
+					sortData({name:"firstName", type: SortType.ASC}, data);
 				}
 
 			} catch(err) {
@@ -52,19 +53,20 @@ function App() {
   }, [dataTable, currentPage, itemsPerPage]);
 
 	// Functions
-	const sortData = (sortType: string, data?: ApiUser[]) => {
-		let sorted: ApiUser[] = [];
+	const sortData = (sortObj: Sort, data?: ApiUser[]) => {
+    const dataToSort = data || dataTable;
+    let sorted: ApiUser[] = [];
 
-		if(data) {
-			sorted = [...data].sort((a, b) => a[sortType].localeCompare(b[sortType]));
-			setDataTable(sorted);
-		} else {
-			sorted = [...dataTable].sort((a, b) => a[sortType].localeCompare(b[sortType]));
-			setDataTable(sorted);
-		}
+		// Determine which sorting direction (ASC or DESC) to apply
+    if (sortObj.type === SortType.ASC) {
+      sorted = [...dataToSort].sort((a, b) => a[sortObj.name].localeCompare(b[sortObj.name]));
+    } else if (sortObj.type === SortType.DESC) {
+      sorted = [...dataToSort].sort((a, b) => b[sortObj.name].localeCompare(a[sortObj.name]));
+    }
 
-	}
-
+    setDataTable(sorted);
+	};
+	
 	const createUser = (user: ApiUser) => {
 		const newId = dataTable[dataTable.length - 1].id + 1;
 		user.id = newId;
