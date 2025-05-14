@@ -22,6 +22,7 @@ function UsersTable({sortData, data, removeUserById}: UsersTableProps) {
 
 	// functions
 	const handleSort = (sortName: string) => {
+		let sortSchema: Sort;
 		setSortBy(prev => {
 			let type = SortType.ASC;
 
@@ -29,14 +30,15 @@ function UsersTable({sortData, data, removeUserById}: UsersTableProps) {
 				type = prev.type === SortType.ASC ? SortType.DESC : SortType.ASC;
 			}
 
-			const newSortObj = {
+			sortSchema = {
 				name: sortName,
 				type,
 			};
 
-			sortData(newSortObj);
-			return newSortObj;
+			return sortSchema;
 		});
+
+		sortData(sortSchema);
 	};
 
 	return (
