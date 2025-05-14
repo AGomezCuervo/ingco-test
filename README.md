@@ -25,5 +25,7 @@ Make sure you have the following installed:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your-username/ingco-user-app.git
-   cd ingco-user-app
+   git clone https://github.com/agomezcuervo/ingco-test.git
+   cd ingco-test
+   npm install
+   npm run dev
