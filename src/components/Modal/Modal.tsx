@@ -10,7 +10,7 @@ interface ModalProps {
 function Modal({createUser}: ModalProps) {
 	const [firstName, setFirstName] = useState<strippng>("")
 	const [lastName, setLastName] = useState<string>("")
-	const [email, setEmail] = useState<string>("")n
+	const [email, setEmail] = useState<string>("")
 
 	// functions
 	const validateForm = () => {
